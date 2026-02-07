@@ -1,0 +1,131 @@
+:root{
+  --bg: #070607;
+  --magenta: #FF00CC;
+  --accent: #FF66D1;
+  --muted: #CFC5CF;
+  --glass: rgba(255,255,255,0.03);
+  --card-glow: 0 8px 30px rgba(255,0,204,0.06);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+}
+
+/* Page/base */
+html,body,#root {
+  height:100%;
+  margin:0;
+  background: radial-gradient(circle at 10% 10%, rgba(255,0,204,0.04), transparent 10%), var(--bg);
+  color: #fff;
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--magenta); text-decoration:none; }
+a:hover { text-decoration: underline; }
+
+/* header / layout utilities */
+.header-bar{
+  background: linear-gradient(90deg, rgba(18,0,18,0.94), rgba(6,0,6,0.98));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  padding: 12px 0;
+}
+.brand { color: var(--magenta); font-weight:800; letter-spacing:-0.6px; }
+.tagline { color: var(--muted); font-size:0.85rem; }
+
+/* container */
+.container { max-width:1100px; margin:28px auto; padding:0 18px; }
+
+/* Neon box and card */
+.neon-box {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: var(--card-glow);
+}
+.card {
+  border-radius:12px;
+  padding:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.7), 0 0 30px rgba(255,0,204,0.05); }
+
+/* ribbons / badges */
+.ribbon {
+  display:inline-block; padding:6px 10px; border-radius:999px;
+  background: linear-gradient(90deg, var(--magenta), var(--accent));
+  color:#070607; font-weight:700; font-size:12px;
+  box-shadow: 0 6px 20px rgba(255,0,204,0.04);
+}
+
+/* markdown content */
+.blog-content h1,h2,h3 { color:#fff; }
+.blog-content p { color: rgba(255,255,255,0.9); line-height:1.6; }
+.blog-content pre { background: rgba(0,0,0,0.45); padding:12px; border-radius:8px; overflow:auto; font-family: var(--mono); }
+
+/* footer */
+.footer { text-align:center; color:var(--muted); padding:40px 0; font-size:0.95rem; }
+
+@media (max-width:600px) {
+  .container { padding: 0 12px; }
+}
+/* extra UI: chip buttons and hero tweaks */
+.chip {
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.02);
+  color: var(--magenta);
+  border: 1px solid rgba(255,255,255,0.03);
+  font-weight:700;
+  text-decoration:none;
+}
+.chip:hover { background: linear-gradient(90deg, rgba(255,0,204,0.06), rgba(255,102,209,0.04)); }
+
+/* slightly larger cards for hero area */
+.container-hero {
+  display:grid;
+  grid-template-columns: 1fr 360px;
+  gap:20px;
+}
+
+/* responsive tweaks */
+@media (max-width:900px) {
+  .container-hero { grid-template-columns: 1fr; }
+  .header-bar nav { display:none; }
+}
+
+/* === Animations === */
+@keyframes neon-pulse {
+  0% { box-shadow: 0 6px 18px rgba(255,0,204,0.02), 0 0 0 rgba(255,0,204,0); }
+  50% { box-shadow: 0 10px 30px rgba(255,0,204,0.06), 0 0 24px rgba(255,0,204,0.06); transform: translateY(-2px); }
+  100% { box-shadow: 0 6px 18px rgba(255,0,204,0.02), 0 0 0 rgba(255,0,204,0); transform: translateY(0); }
+}
+
+.pulse {
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* subtle entrance for non-JS fallback (opacity) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Focus-visible helpers for buttons and links */
+button:focus, a:focus, input:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,0,204,0.10);
+}
